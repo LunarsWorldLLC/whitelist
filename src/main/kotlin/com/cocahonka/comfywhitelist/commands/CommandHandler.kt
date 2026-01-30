@@ -2,11 +2,11 @@ package com.cocahonka.comfywhitelist.commands
 
 import com.cocahonka.comfywhitelist.ComfyWhitelist
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
-import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.commands.sub.*
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
 import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
+import com.cocahonka.comfywhitelist.storage.YamlStorage
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -15,12 +15,12 @@ import org.bukkit.command.ConsoleCommandSender
 /**
  * Handles subcommands and their execution for the ComfyWhitelist plugin.
  *
- * @param storage The [Storage] instance to interact with whitelist data.
+ * @param storage The [YamlStorage] instance to interact with whitelist data.
  * @param generalConfig The [GeneralConfig] instance to manage plugin configuration.
  * @param plugin The [ComfyWhitelist] plugin instance.
  */
 class CommandHandler(
-    storage: Storage,
+    storage: YamlStorage,
     generalConfig: GeneralConfig,
     plugin: ComfyWhitelist,
 ) : CommandExecutor {
@@ -38,6 +38,7 @@ class CommandHandler(
             AddCommand(storage),
             RemoveCommand(storage),
             ListCommand(storage),
+            CheckCommand(storage),
             StatusCommand(),
             EnableCommand(generalConfig),
             DisableCommand(generalConfig),

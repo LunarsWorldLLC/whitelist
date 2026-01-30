@@ -1,18 +1,18 @@
 package com.cocahonka.comfywhitelist.commands.sub
 
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
-import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.commands.SubCommand
 import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
+import com.cocahonka.comfywhitelist.storage.YamlStorage
 import org.bukkit.command.CommandSender
 
 /**
  * Represents the "remove" command, which removes a player from the whitelist.
  *
- * @property storage The [Storage] instance to interact with whitelist data.
+ * @property storage The [YamlStorage] instance to interact with whitelist data.
  */
-class RemoveCommand(private val storage: Storage) : SubCommand {
+class RemoveCommand(private val storage: YamlStorage) : SubCommand {
 
     override val identifier = "remove"
     override val permission = "comfywhitelist.remove"
