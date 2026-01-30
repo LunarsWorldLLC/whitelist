@@ -41,7 +41,7 @@ Plans:
 
 ## Phase 2: Commands
 
-**Goal:** Implement all whitelist management commands
+**Goal:** Implement all whitelist management commands with expiry support
 
 **Requirements:**
 - CMD-01: `/wl add <player>` adds player with 31-day expiry
@@ -52,10 +52,11 @@ Plans:
 - SIM-02: Remove unused commands (enable, disable, status, help, clear, reload)
 - SIM-03: Simplify message formatting (no MiniMessage tags)
 
-**Plans:** 0 plans
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (created by /gsd:plan-phase)
+- [ ] 02-01-PLAN.md — Expiry-aware command logic (modify add/list, create check, add messages)
+- [ ] 02-02-PLAN.md — Command cleanup (delete 6 unused commands, update handler/tab completer/permissions)
 
 **Success Criteria:**
 1. Add command creates/extends entries correctly
