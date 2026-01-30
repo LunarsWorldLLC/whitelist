@@ -102,4 +102,31 @@ class PlayerPreLoginEventTest {
         assertConnectedTrue()
     }
 
+    @Test
+    fun `when player has EXPIRED entry, whitelist is ON`() {
+        generalConfig.enableWhitelist()
+        val yamlStorage = storage as YamlStorage
+        yamlStorage.addPlayerWithExpiry(joiningPlayer.name, System.currentTimeMillis() - 1000L)
+        executeEvent()
+        assertConnectedFalse()
+    }
+
+    @Test
+    fun `when player has VALID timed entry, whitelist is ON`() {
+        generalConfig.enableWhitelist()
+        val yamlStorage = storage as YamlStorage
+        yamlStorage.addPlayerWithExpiry(joiningPlayer.name, System.currentTimeMillis() + 86400000L)
+        executeEvent()
+        assertConnectedTrue()
+    }
+
+    @Test
+    fun `when player has PERMANENT entry, whitelist is ON`() {
+        generalConfig.enableWhitelist()
+        val yamlStorage = storage as YamlStorage
+        yamlStorage.addPlayerWithExpiry(joiningPlayer.name, null)
+        executeEvent()
+        assertConnectedTrue()
+    }
+
 }
