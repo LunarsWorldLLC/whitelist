@@ -72,6 +72,7 @@ Plans:
 
 ## Phase 3: Access & Cleanup
 
+**Status:** Planned
 **Goal:** Enforce whitelist on login and auto-remove expired entries
 
 **Requirements:**
@@ -80,10 +81,10 @@ Plans:
 - CLN-01: Background task runs periodically to remove expired entries
 - CLN-02: Expired entries removed from storage file
 
-**Plans:** 0 plans
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD (created by /gsd:plan-phase)
+- [ ] 03-01-PLAN.md — Verify access control tests + implement cleanup task
 
 **Success Criteria:**
 1. Non-whitelisted players kicked with clear message
