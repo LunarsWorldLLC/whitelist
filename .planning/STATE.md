@@ -8,26 +8,26 @@
 See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Players are automatically removed from the whitelist when their time expires
-**Current focus:** Phase 2 in progress, 02-01 complete
+**Current focus:** Phase 2 complete, ready for Phase 3
 
 ## Current Position
 
 Phase: 2 of 3 (Commands)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-01-30 - Completed 02-01-PLAN.md
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-01-30 - Completed 02-02-PLAN.md
 
-Progress: ██████░░░░ 75%
+Progress: ████████░░ 80%
 
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1 | Complete | 2/2 | 100% |
-| 2 | In Progress | 1/2 | 50% |
+| 2 | Complete | 2/2 | 100% |
 | 3 | Pending | 0/? | 0% |
 
-**Overall:** 3/4 known plans complete (Phase 3 plans TBD)
+**Overall:** 4/4 known plans complete (Phase 3 plans TBD)
 
 ## Decisions
 
@@ -39,15 +39,17 @@ Progress: ██████░░░░ 75%
 | 01-02 | Keep MessageFormat for MiniMessage tags | Maintains existing styling (comfy, warning, success) |
 | 02-01 | All commands use YamlStorage instead of Storage | Required for expiry-specific methods access |
 | 02-01 | AddCommand always sets 31-day expiry from now | Extends existing entries by setting new future timestamp |
+| 02-02 | Removed 6 unused commands | Simplification: enable, disable, status, clear, reload, help removed |
+| 02-02 | CommandHandler takes only storage parameter | No longer needs generalConfig or plugin |
 
 ## Blockers/Concerns
 
-- CheckCommand permission (comfywhitelist.check) should be documented in plugin.yml
+None - Phase 2 complete with all commands functional
 
 ## Session Continuity
 
-Last session: 2026-01-30T14:38:35Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-01-30T14:44:37Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
 
 ---

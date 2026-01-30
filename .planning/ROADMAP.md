@@ -39,8 +39,9 @@ Plans:
 
 ---
 
-## Phase 2: Commands
+## Phase 2: Commands ✓
 
+**Status:** Complete (2026-01-30)
 **Goal:** Implement all whitelist management commands with expiry support
 
 **Requirements:**
@@ -55,8 +56,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Expiry-aware command logic (modify add/list, create check, add messages)
-- [ ] 02-02-PLAN.md — Command cleanup (delete 6 unused commands, update handler/tab completer/permissions)
+- [x] 02-01-PLAN.md — Expiry-aware command logic (modify add/list, create check, add messages)
+- [x] 02-02-PLAN.md — Command cleanup (delete 6 unused commands, update handler/tab completer/permissions)
 
 **Success Criteria:**
 1. Add command creates/extends entries correctly
