@@ -1,5 +1,7 @@
 package com.cocahonka.comfywhitelist.config.message
 
+import com.cocahonka.comfywhitelist.ComfyWhitelist
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextReplacementConfig
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -16,6 +18,11 @@ object MessageFormat {
      * A [MiniMessage] instance for parsing mini messages.
      */
     private val miniMessage = MiniMessage.miniMessage()
+
+    /**
+     * A prefix component for all plugin messages.
+     */
+    val prefixComponent: Component = Component.text(ComfyWhitelist.DISPLAY_NAME + " > ").color(Colors.prefix)
 
     fun applyStyles(rawMessage: String) =
         miniMessage.deserialize(
@@ -94,7 +101,7 @@ object MessageFormat {
     }
 
     object Placeholders {
-        val prefix = Placeholder.component("comfy", Message.prefixComponent)
+        val prefix = Placeholder.component("comfy", prefixComponent)
     }
 
 }
