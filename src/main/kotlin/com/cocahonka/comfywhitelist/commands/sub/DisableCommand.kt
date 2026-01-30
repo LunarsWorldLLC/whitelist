@@ -3,7 +3,7 @@ package com.cocahonka.comfywhitelist.commands.sub
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
 import com.cocahonka.comfywhitelist.commands.SubCommand
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import org.bukkit.command.CommandSender
 
 /**
@@ -21,10 +21,10 @@ class DisableCommand(private val generalConfig: GeneralConfig) : SubCommand {
         if (isInvalidUsage(sender) { args.isEmpty() }) return false
 
         val message = if (!GeneralConfig.whitelistEnabled) {
-            MessageConfig.whitelistAlreadyDisabled
+            Messages.whitelistAlreadyDisabled
         } else {
             generalConfig.disableWhitelist()
-            MessageConfig.whitelistDisabled
+            Messages.whitelistDisabled
         }
         sender.sendMessage(message)
         return true

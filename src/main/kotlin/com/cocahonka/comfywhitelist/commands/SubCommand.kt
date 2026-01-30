@@ -1,7 +1,7 @@
 package com.cocahonka.comfywhitelist.commands
 
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
 import org.bukkit.command.CommandSender
 
@@ -48,7 +48,7 @@ interface SubCommand {
     fun isInvalidUsage(sender: CommandSender, expected: () -> Boolean): Boolean {
         if (!expected()){
             val replacementConfig = MessageFormat.ConfigBuilders.usageReplacementConfigBuilder(usage)
-            val message = MessageConfig.invalidUsage.replaceText(replacementConfig)
+            val message = Messages.invalidUsage.replaceText(replacementConfig)
             sender.sendMessage(message)
             return true
         }

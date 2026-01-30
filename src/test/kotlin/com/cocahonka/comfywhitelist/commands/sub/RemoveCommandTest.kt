@@ -3,8 +3,8 @@ package com.cocahonka.comfywhitelist.commands.sub
 import be.seeseemelk.mockbukkit.command.MessageTarget
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import com.cocahonka.comfywhitelist.commands.CommandTestBase
-import com.cocahonka.comfywhitelist.config.message.Message
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
+import com.cocahonka.comfywhitelist.config.message.Messages
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -30,7 +30,7 @@ class RemoveCommandTest : CommandTestBase() {
 
     private fun assertOnlyPlayerRemovedMessage(sender: MessageTarget, player: PlayerMock) {
         val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(player.name)
-        val message = Message.PlayerRemoved.getDefault(locale).replaceText(replacementConfig)
+        val message = Messages.playerRemoved.replaceText(replacementConfig)
         assertEquals(
             sender.nextMessage(),
             legacySection.serialize(message)
@@ -40,7 +40,7 @@ class RemoveCommandTest : CommandTestBase() {
 
     private fun assertOnlyNonExistentPlayerName(sender: MessageTarget, player: PlayerMock) {
         val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(player.name)
-        val message = Message.NonExistentPlayerName.getDefault(locale).replaceText(replacementConfig)
+        val message = Messages.nonExistentPlayerName.replaceText(replacementConfig)
         assertEquals(
             sender.nextMessage(),
             legacySection.serialize(message)
@@ -119,12 +119,12 @@ class RemoveCommandTest : CommandTestBase() {
 
     @Test
     fun `when player name is invalid`() {
-        val invalidPlayer = server.addPlayer("мотузок")
+        // Using invalid characters to trigger invalid name validation
         val result = handler.onCommand(
             sender = playerWithPermission,
             command = command,
             label = label,
-            args = arrayOf(removeCommand.identifier, invalidPlayer.name),
+            args = arrayOf(removeCommand.identifier, "invalid-name!"),
         )
 
         assertFalse(result)

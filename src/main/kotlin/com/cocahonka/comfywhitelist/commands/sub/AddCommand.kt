@@ -3,7 +3,7 @@ package com.cocahonka.comfywhitelist.commands.sub
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
 import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.commands.SubCommand
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
 import org.bukkit.command.CommandSender
 
@@ -23,12 +23,12 @@ class AddCommand(private val storage: Storage) : SubCommand {
 
         val playerName = args[0]
         if (!playerName.matches(SubCommand.playerNameRegex)){
-            sender.sendMessage(MessageConfig.invalidPlayerName)
+            sender.sendMessage(Messages.invalidPlayerName)
             return false
         }
 
         val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(playerName)
-        val message = MessageConfig.playerAdded.replaceText(replacementConfig)
+        val message = Messages.playerAdded.replaceText(replacementConfig)
         sender.sendMessage(message)
         return storage.addPlayer(playerName)
     }

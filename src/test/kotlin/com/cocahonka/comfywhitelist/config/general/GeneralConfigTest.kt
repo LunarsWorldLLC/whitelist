@@ -33,9 +33,10 @@ class GeneralConfigTest {
     }
 
     @Test
-    fun `loadConfig sets default whitelistEnabled when config file does not exist`() {
+    fun `loadConfig sets whitelistEnabled from default config when no user config exists`() {
+        // When no user config exists, the default from bundled config.yml (enabled: false) is used
         generalConfig.loadConfig()
-        assertTrue(GeneralConfig.whitelistEnabled)
+        assertFalse(GeneralConfig.whitelistEnabled)
     }
 
     @Test

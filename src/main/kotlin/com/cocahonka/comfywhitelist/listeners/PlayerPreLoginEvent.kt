@@ -3,7 +3,7 @@ package com.cocahonka.comfywhitelist.listeners
 import com.cocahonka.comfywhitelist.LegacyUtils.toLegacyText
 import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -34,7 +34,7 @@ class PlayerPreLoginEvent(private val storage: Storage) : Listener {
         if (!storage.isPlayerWhitelisted(playerName)) {
             event.disallow(
                 AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST,
-                MessageConfig.notWhitelisted.toLegacyText()
+                Messages.notWhitelisted.toLegacyText()
             )
         }
     }

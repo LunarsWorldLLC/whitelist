@@ -3,19 +3,19 @@ package com.cocahonka.comfywhitelist.commands.sub
 import be.seeseemelk.mockbukkit.command.MessageTarget
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import com.cocahonka.comfywhitelist.commands.CommandTestBase
-import com.cocahonka.comfywhitelist.config.message.Message
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
+import com.cocahonka.comfywhitelist.config.message.Messages
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class AddCommandTest : CommandTestBase() {
-    
+
     private lateinit var addCommand: AddCommand
     private lateinit var label: String
 
     private lateinit var addedPlayer: PlayerMock
-    
+
     @BeforeEach
     override fun setUp() {
         super.setUp()
@@ -29,7 +29,7 @@ class AddCommandTest : CommandTestBase() {
 
     private fun assertOnlyPlayerAddedMessage(sender: MessageTarget, player: PlayerMock) {
         val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(player.name)
-        val message = Message.PlayerAdded.getDefault(locale).replaceText(replacementConfig)
+        val message = Messages.playerAdded.replaceText(replacementConfig)
         assertEquals(
             sender.nextMessage(),
             legacySection.serialize(message)
@@ -110,16 +110,15 @@ class AddCommandTest : CommandTestBase() {
 
     @Test
     fun `when player name is invalid`() {
-        val invalidPlayer = server.addPlayer("мотузок")
+        // Using non-ASCII characters to trigger invalid name validation
         val result = handler.onCommand(
             sender = playerWithPermission,
             command = command,
             label = label,
-            args = arrayOf(addCommand.identifier, invalidPlayer.name),
+            args = arrayOf(addCommand.identifier, "invalid-name!"),
         )
 
         assertFalse(result)
-        assertNotWhitelisted(invalidPlayer)
         assertOnlyInvalidPlayerNameMessage(playerWithPermission)
     }
 

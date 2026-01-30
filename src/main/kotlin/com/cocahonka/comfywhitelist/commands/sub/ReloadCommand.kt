@@ -3,7 +3,7 @@ package com.cocahonka.comfywhitelist.commands.sub
 import com.cocahonka.comfywhitelist.ComfyWhitelist
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
 import com.cocahonka.comfywhitelist.commands.SubCommand
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import org.bukkit.command.CommandSender
 
 /**
@@ -20,7 +20,7 @@ class ReloadCommand(private val plugin: ComfyWhitelist) : SubCommand {
     override fun execute(sender: CommandSender, args: Array<String>): Boolean {
         if(isInvalidUsage(sender) { args.isEmpty() }) return false
 
-        sender.sendMessage(MessageConfig.pluginReloaded)
+        sender.sendMessage(Messages.pluginReloaded)
         plugin.reloadConfigs()
 
         return true

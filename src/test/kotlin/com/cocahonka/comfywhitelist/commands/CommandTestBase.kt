@@ -7,11 +7,9 @@ import be.seeseemelk.mockbukkit.command.MessageTarget
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import com.cocahonka.comfywhitelist.ComfyWhitelist
 import com.cocahonka.comfywhitelist.api.Storage
-import com.cocahonka.comfywhitelist.config.base.Locale
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
-import com.cocahonka.comfywhitelist.config.message.Message
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
+import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.storage.YamlStorage
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.command.PluginCommand
@@ -31,8 +29,6 @@ abstract class CommandTestBase {
 
     protected lateinit var storage: Storage
     protected lateinit var generalConfig: GeneralConfig
-    protected lateinit var messageConfig: MessageConfig
-    protected val locale = Locale.EN
 
     protected lateinit var command: PluginCommand
     protected lateinit var handler: CommandHandler
@@ -50,7 +46,6 @@ abstract class CommandTestBase {
 
         storage = YamlStorage(plugin.dataFolder)
         generalConfig = GeneralConfig(plugin).apply { loadConfig() }
-        messageConfig = MessageConfig(plugin, locale).apply { loadConfig() }
 
         command = plugin.getCommand(CommandHandler.identifier)!!
         handler = CommandHandler(storage, generalConfig, plugin)
@@ -85,7 +80,7 @@ abstract class CommandTestBase {
     protected fun assertOnlyNoPermissionMessage(sender: MessageTarget) {
         assertEquals(
             sender.nextMessage(),
-            legacySection.serialize(Message.NoPermission.getDefault(locale))
+            legacySection.serialize(Messages.noPermission)
         )
         sender.assertNoMoreSaid()
     }
@@ -93,14 +88,14 @@ abstract class CommandTestBase {
     protected fun assertOnlyInvalidPlayerNameMessage(sender: MessageTarget) {
         assertEquals(
             sender.nextMessage(),
-            legacySection.serialize(Message.InvalidPlayerName.getDefault(locale))
+            legacySection.serialize(Messages.invalidPlayerName)
         )
         sender.assertNoMoreSaid()
     }
 
     protected fun assertOnlyInvalidUsageMessage(sender: MessageTarget, usage: String) {
         val replacementConfig = MessageFormat.ConfigBuilders.usageReplacementConfigBuilder(usage)
-        val message = Message.InvalidUsage.getDefault(locale).replaceText(replacementConfig)
+        val message = Messages.invalidUsage.replaceText(replacementConfig)
         assertEquals(
             sender.nextMessage(),
             legacySection.serialize(message)

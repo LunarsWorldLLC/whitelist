@@ -3,7 +3,7 @@ package com.cocahonka.comfywhitelist.commands.sub
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
 import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.commands.SubCommand
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
+import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
 import org.bukkit.command.CommandSender
 
@@ -23,19 +23,19 @@ class RemoveCommand(private val storage: Storage) : SubCommand {
 
         val playerName = args[0]
         if (!playerName.matches(SubCommand.playerNameRegex)){
-            sender.sendMessage(MessageConfig.invalidPlayerName)
+            sender.sendMessage(Messages.invalidPlayerName)
             return false
         }
 
         if(!storage.isPlayerWhitelisted(playerName)) {
             val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(playerName)
-            val message = MessageConfig.nonExistentPlayerName.replaceText(replacementConfig)
+            val message = Messages.nonExistentPlayerName.replaceText(replacementConfig)
             sender.sendMessage(message)
             return false
         }
 
         val replacementConfig = MessageFormat.ConfigBuilders.nameReplacementConfigBuilder(playerName)
-        val message = MessageConfig.playerRemoved.replaceText(replacementConfig)
+        val message = Messages.playerRemoved.replaceText(replacementConfig)
         sender.sendMessage(message)
         return storage.removePlayer(playerName)
     }
