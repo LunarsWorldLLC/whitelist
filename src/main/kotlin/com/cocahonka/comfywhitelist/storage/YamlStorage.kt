@@ -10,11 +10,18 @@ import java.io.File
  * the whitelist data. It provides methods for adding, removing, and checking players in the whitelist,
  * as well as loading and saving the data to the YAML file.
  *
+ * Entries are stored with optional expiry timestamps. The YAML format is section-based:
+ * ```
+ * players:
+ *   PlayerName:
+ *     expiry: <timestamp|null>
+ * ```
+ *
  * @param dataFolder The folder where the YAML storage file should be located. It must be a directory.
  * @throws IllegalArgumentException If the provided dataFolder is not a directory.
  */
 class YamlStorage(dataFolder: File) : Storage {
-    private val whitelistedPlayers: MutableSet<String> = mutableSetOf()
+    private val whitelistedPlayers: MutableMap<String, WhitelistEntry> = mutableMapOf()
     private val storageFile: File
     private val config: YamlConfiguration
 
@@ -28,17 +35,46 @@ class YamlStorage(dataFolder: File) : Storage {
     }
 
     companion object {
-        private const val WHITELISTED_PLAYERS_KEY = "players"
+        private const val PLAYERS_KEY = "players"
+        private const val EXPIRY_KEY = "expiry"
         private const val FILE_NAME = "whitelist.yml"
     }
 
     override fun addPlayer(username: String): Boolean {
-        return whitelistedPlayers.add(username).also { save() }
+        val normalized = username.lowercase()
+        if (whitelistedPlayers.containsKey(normalized)) {
+            return false // Already exists
+        }
+        whitelistedPlayers[normalized] = WhitelistEntry(username, null)
+        return save()
     }
 
+    /**
+     * Adds a player to the whitelist with an optional expiry timestamp.
+     * If the player already exists, their entry is replaced with the new expiry.
+     *
+     * @param username The player's username (case preserved for display)
+     * @param expiryTimestamp Epoch milliseconds when entry expires, null for permanent
+     * @return true if saved successfully
+     */
+    fun addPlayerWithExpiry(username: String, expiryTimestamp: Long?): Boolean {
+        val normalized = username.lowercase()
+        whitelistedPlayers[normalized] = WhitelistEntry(username, expiryTimestamp)
+        return save()
+    }
+
+    /**
+     * Gets the whitelist entry for a player.
+     *
+     * @param username The player's username (case-insensitive)
+     * @return The WhitelistEntry or null if player is not whitelisted
+     */
+    fun getEntry(username: String): WhitelistEntry? {
+        return whitelistedPlayers[username.lowercase()]
+    }
 
     override fun removePlayer(username: String): Boolean {
-        return whitelistedPlayers.remove(username).also { save() }
+        return (whitelistedPlayers.remove(username.lowercase()) != null).also { if (it) save() }
     }
 
     override fun clear(): Boolean {
@@ -47,11 +83,15 @@ class YamlStorage(dataFolder: File) : Storage {
     }
 
     override fun isPlayerWhitelisted(username: String): Boolean {
-        return whitelistedPlayers.contains(username)
+        val entry = whitelistedPlayers[username.lowercase()]
+        return entry?.isValid() == true
     }
 
     override fun getAllWhitelistedPlayers(): Set<String> {
-        return whitelistedPlayers.toSet()
+        return whitelistedPlayers.values
+            .filter { it.isValid() }
+            .map { it.playerName }
+            .toSet()
     }
 
     override fun load(): Boolean {
@@ -62,7 +102,20 @@ class YamlStorage(dataFolder: File) : Storage {
             }
             config.load(storageFile)
             whitelistedPlayers.clear()
-            whitelistedPlayers.addAll(config.getStringList(WHITELISTED_PLAYERS_KEY))
+
+            // Try new format first (section-based)
+            val section = config.getConfigurationSection(PLAYERS_KEY)
+            if (section != null) {
+                section.getKeys(false).forEach { playerName ->
+                    val expiry = section.get("$playerName.$EXPIRY_KEY") as? Long
+                    whitelistedPlayers[playerName.lowercase()] = WhitelistEntry(playerName, expiry)
+                }
+            } else {
+                // Fallback: old format (list of strings) - migrate to permanent entries
+                config.getStringList(PLAYERS_KEY).forEach { playerName ->
+                    whitelistedPlayers[playerName.lowercase()] = WhitelistEntry(playerName, null)
+                }
+            }
             true
         } catch (e: Exception) {
             getLogger().warning(e.stackTraceToString())
@@ -72,7 +125,10 @@ class YamlStorage(dataFolder: File) : Storage {
 
     override fun save(): Boolean {
         return try {
-            config.set(WHITELISTED_PLAYERS_KEY, whitelistedPlayers.toList())
+            config.set(PLAYERS_KEY, null) // Clear section first
+            whitelistedPlayers.values.forEach { entry ->
+                config.set("$PLAYERS_KEY.${entry.playerName}.$EXPIRY_KEY", entry.expiryTimestamp)
+            }
             config.save(storageFile)
             true
         } catch (e: Exception) {
