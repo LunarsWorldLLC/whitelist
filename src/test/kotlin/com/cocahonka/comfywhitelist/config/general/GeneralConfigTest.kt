@@ -2,11 +2,12 @@ package com.cocahonka.comfywhitelist.config.general
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
-import com.cocahonka.comfywhitelist.config.base.Locale
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.Plugin
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -32,32 +33,25 @@ class GeneralConfigTest {
     }
 
     @Test
-    fun `loadConfig sets default locale when config file does not exist`() {
+    fun `loadConfig sets default whitelistEnabled when config file does not exist`() {
         generalConfig.loadConfig()
-        assertEquals(Locale.EN, GeneralConfig.locale)
+        assertTrue(GeneralConfig.whitelistEnabled)
     }
 
     @Test
-    fun `loadConfig sets correct locale when config file exists`() {
-        val filePath = GeneralConfig::class.java
-            .getDeclaredField("filePath")
-            .apply { isAccessible = true }
-            .get(GeneralConfig.Companion::class.java) as String
-
-        val localeKey = GeneralConfig::class.java
-            .getDeclaredField("localeKey")
-            .apply { isAccessible = true }
-            .get(GeneralConfig.Companion::class.java) as String
+    fun `loadConfig sets correct whitelistEnabled when config file exists`() {
+        val filePath = "config.yml"
+        val enabledKey = "enabled"
 
         val configFile = File(plugin.dataFolder, filePath)
         configFile.parentFile.mkdirs()
 
         YamlConfiguration.loadConfiguration(configFile).apply {
-            set(localeKey, Locale.RU.code)
+            set(enabledKey, false)
             save(configFile)
         }
 
         generalConfig.loadConfig()
-        assertEquals(Locale.RU, GeneralConfig.locale)
+        assertFalse(GeneralConfig.whitelistEnabled)
     }
 }
