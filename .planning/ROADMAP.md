@@ -23,6 +23,12 @@
 - STOR-03: Save whitelist to YAML after modifications
 - SIM-01: Remove locale system (English only)
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Expiry-aware storage (WhitelistEntry + YamlStorage modifications)
+- [ ] 01-02-PLAN.md — Remove locale system (Messages object, delete locale files)
+
 **Success Criteria:**
 1. WhitelistEntry data class holds player name + expiry timestamp
 2. YAML storage saves/loads entries with timestamps
@@ -45,6 +51,11 @@
 - SIM-02: Remove unused commands (enable, disable, status, help, clear, reload)
 - SIM-03: Simplify message formatting (no MiniMessage tags)
 
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (created by /gsd:plan-phase)
+
 **Success Criteria:**
 1. Add command creates/extends entries correctly
 2. Remove command deletes entries
@@ -66,6 +77,11 @@
 - CLN-01: Background task runs periodically to remove expired entries
 - CLN-02: Expired entries removed from storage file
 
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (created by /gsd:plan-phase)
+
 **Success Criteria:**
 1. Non-whitelisted players kicked with clear message
 2. Expired players treated as non-whitelisted
@@ -83,7 +99,7 @@ All 15 v1 requirements mapped:
 - Phase 2: 8 requirements (commands + simplification)
 - Phase 3: 4 requirements (access control + cleanup)
 
-Unmapped: 0 ✓
+Unmapped: 0
 
 ---
 *Roadmap created: 2026-01-30*
