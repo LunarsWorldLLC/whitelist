@@ -127,7 +127,12 @@ class YamlStorage(dataFolder: File) : Storage {
         return try {
             config.set(PLAYERS_KEY, null) // Clear section first
             whitelistedPlayers.values.forEach { entry ->
-                config.set("$PLAYERS_KEY.${entry.playerName}.$EXPIRY_KEY", entry.expiryTimestamp)
+                // Create the player section explicitly, then set expiry
+                // This ensures the player key exists even when expiry is null
+                config.createSection("$PLAYERS_KEY.${entry.playerName}")
+                if (entry.expiryTimestamp != null) {
+                    config.set("$PLAYERS_KEY.${entry.playerName}.$EXPIRY_KEY", entry.expiryTimestamp)
+                }
             }
             config.save(storageFile)
             true
