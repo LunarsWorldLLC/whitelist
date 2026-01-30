@@ -21,13 +21,13 @@
 
 ### Access Control
 
-- [ ] **ACC-01**: Block non-whitelisted players from joining server
-- [ ] **ACC-02**: Allow whitelisted players with valid (non-expired) entries
+- [x] **ACC-01**: Block non-whitelisted players from joining server
+- [x] **ACC-02**: Allow whitelisted players with valid (non-expired) entries
 
 ### Cleanup
 
-- [ ] **CLN-01**: Background task runs periodically to remove expired entries
-- [ ] **CLN-02**: Expired entries removed from storage file
+- [x] **CLN-01**: Background task runs periodically to remove expired entries
+- [x] **CLN-02**: Expired entries removed from storage file
 
 ### Simplification
 
@@ -62,10 +62,10 @@
 | CMD-03 | Phase 2 | Complete |
 | CMD-04 | Phase 2 | Complete |
 | CMD-05 | Phase 2 | Complete |
-| ACC-01 | Phase 3 | Pending |
-| ACC-02 | Phase 3 | Pending |
-| CLN-01 | Phase 3 | Pending |
-| CLN-02 | Phase 3 | Pending |
+| ACC-01 | Phase 3 | Complete |
+| ACC-02 | Phase 3 | Complete |
+| CLN-01 | Phase 3 | Complete |
+| CLN-02 | Phase 3 | Complete |
 | SIM-01 | Phase 1 | Complete |
 | SIM-02 | Phase 2 | Complete |
 | SIM-03 | Phase 2 | Complete |
@@ -77,4 +77,4 @@
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after Phase 2 completion*
+*Last updated: 2026-01-30 after Phase 3 completion*

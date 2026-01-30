@@ -70,9 +70,9 @@ Plans:
 
 ---
 
-## Phase 3: Access & Cleanup
+## Phase 3: Access & Cleanup ✓
 
-**Status:** Planned
+**Status:** Complete (2026-01-30)
 **Goal:** Enforce whitelist on login and auto-remove expired entries
 
 **Requirements:**
@@ -84,7 +84,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 03-01-PLAN.md — Verify access control tests + implement cleanup task
+- [x] 03-01-PLAN.md — Verify access control tests + implement cleanup task
 
 **Success Criteria:**
 1. Non-whitelisted players kicked with clear message
