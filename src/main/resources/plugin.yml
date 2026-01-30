@@ -18,12 +18,8 @@ permissions:
     children:
       comfywhitelist.add: true
       comfywhitelist.remove: true
-      comfywhitelist.clear: true
       comfywhitelist.list: true
-      comfywhitelist.on: true
-      comfywhitelist.off: true
-      comfywhitelist.reload: true
-      comfywhitelist.help: true
+      comfywhitelist.check: true
   comfywhitelist.comfywhitelist:
     description: Give access to main ComfyWhitelist command.
     default: op
@@ -33,26 +29,9 @@ permissions:
   comfywhitelist.remove:
     description: Give access to remove player name from ComfyWhitelist.
     default: op
-    children:
-      comfywhitelist.clear: true
-  comfywhitelist.clear:
-    description: Give access to hard-reset ComfyWhitelist.
-    default: false
   comfywhitelist.list:
     description: Give access to display all player names in ComfyWhitelist.
     default: op
-  comfywhitelist.on:
-    description: Give access to enable ComfyWhitelist.
-    default: op
-  comfywhitelist.off:
-    description: Give access to disable ComfyWhitelist.
-    default: op
-  comfywhitelist.reload:
-    description: Give access to reload ComfyWhitelist.
-    default: op
-  comfywhitelist.help:
-    description: Displays information about ComfyWhitelist commands
-    default: op
-  comfywhitelist.status:
-    description: Displays status of the ComfyWhitelist (on/off)
+  comfywhitelist.check:
+    description: Give access to check player whitelist status.
     default: op
