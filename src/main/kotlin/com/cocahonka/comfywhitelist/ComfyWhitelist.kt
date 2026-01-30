@@ -81,7 +81,7 @@ class ComfyWhitelist : JavaPlugin {
     }
 
     private fun registerCommands() {
-        val commandHandler = CommandHandler(storage, generalConfig, this)
+        val commandHandler = CommandHandler(storage)
         val identifier = CommandHandler.identifier
 
         getCommand(identifier)!!.setExecutor(commandHandler)

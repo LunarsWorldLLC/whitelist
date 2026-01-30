@@ -1,9 +1,10 @@
 package com.cocahonka.comfywhitelist.commands
 
-import com.cocahonka.comfywhitelist.ComfyWhitelist
 import com.cocahonka.comfywhitelist.LegacyUtils.sendMessage
-import com.cocahonka.comfywhitelist.commands.sub.*
-import com.cocahonka.comfywhitelist.config.general.GeneralConfig
+import com.cocahonka.comfywhitelist.commands.sub.AddCommand
+import com.cocahonka.comfywhitelist.commands.sub.CheckCommand
+import com.cocahonka.comfywhitelist.commands.sub.ListCommand
+import com.cocahonka.comfywhitelist.commands.sub.RemoveCommand
 import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
 import com.cocahonka.comfywhitelist.storage.YamlStorage
@@ -16,13 +17,9 @@ import org.bukkit.command.ConsoleCommandSender
  * Handles subcommands and their execution for the ComfyWhitelist plugin.
  *
  * @param storage The [YamlStorage] instance to interact with whitelist data.
- * @param generalConfig The [GeneralConfig] instance to manage plugin configuration.
- * @param plugin The [ComfyWhitelist] plugin instance.
  */
 class CommandHandler(
     storage: YamlStorage,
-    generalConfig: GeneralConfig,
-    plugin: ComfyWhitelist,
 ) : CommandExecutor {
 
     companion object {
@@ -34,19 +31,12 @@ class CommandHandler(
     val subCommands: List<SubCommand>
 
     init {
-        val commands = listOf(
+        subCommands = listOf(
             AddCommand(storage),
             RemoveCommand(storage),
             ListCommand(storage),
             CheckCommand(storage),
-            StatusCommand(),
-            EnableCommand(generalConfig),
-            DisableCommand(generalConfig),
-            ClearCommand(storage),
-            ReloadCommand(plugin),
         )
-        val helpCommand = HelpCommand(commands)
-        subCommands = commands + helpCommand
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {

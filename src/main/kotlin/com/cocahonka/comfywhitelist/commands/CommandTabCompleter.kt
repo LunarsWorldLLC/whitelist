@@ -1,8 +1,9 @@
 package com.cocahonka.comfywhitelist.commands
 
-import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.commands.sub.AddCommand
+import com.cocahonka.comfywhitelist.commands.sub.CheckCommand
 import com.cocahonka.comfywhitelist.commands.sub.RemoveCommand
+import com.cocahonka.comfywhitelist.storage.YamlStorage
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
@@ -13,10 +14,10 @@ import org.bukkit.command.TabCompleter
  * It suggests the command identifiers as the first argument, and for specific commands ("add" and "remove"),
  * it suggests the online player names or the whitelisted player names respectively.
  *
- * @param storage The [Storage] instance that contains the whitelist data.
+ * @param storage The [YamlStorage] instance that contains the whitelist data.
  * @param subCommands The list of [SubCommand] instances that the plugin can execute.
  */
-class CommandTabCompleter(private val storage: Storage, private val subCommands: List<SubCommand>) : TabCompleter {
+class CommandTabCompleter(private val storage: YamlStorage, private val subCommands: List<SubCommand>) : TabCompleter {
 
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String> {
         if (args.size == 1) {
@@ -29,14 +30,15 @@ class CommandTabCompleter(private val storage: Storage, private val subCommands:
             val subCommandParam = args[1]
 
             val addCommand = subCommands.find { it is AddCommand }
-            val removeCommand = subCommands.find {it is RemoveCommand}
+            val removeCommand = subCommands.find { it is RemoveCommand }
+            val checkCommand = subCommands.find { it is CheckCommand }
             when (subCommandIdentifier.lowercase()) {
                 addCommand?.identifier -> {
                     val onlinePlayers = sender.server.onlinePlayers.map { it.name }
                     return onlinePlayers.filter { it.startsWith(subCommandParam, ignoreCase = true) }.toMutableList()
                 }
-                removeCommand?.identifier -> {
-                    val whitelistedPlayers = storage.allWhitelistedPlayers
+                removeCommand?.identifier, checkCommand?.identifier -> {
+                    val whitelistedPlayers = storage.getAllWhitelistedPlayers()
                     return whitelistedPlayers.filter { it.startsWith(subCommandParam, ignoreCase = true) }.toMutableList()
                 }
             }
