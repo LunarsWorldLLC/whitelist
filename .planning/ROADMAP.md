@@ -26,8 +26,8 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Expiry-aware storage (WhitelistEntry + YamlStorage modifications)
-- [ ] 01-02-PLAN.md — Remove locale system (Messages object, delete locale files)
+- [x] 01-01-PLAN.md — Expiry-aware storage (WhitelistEntry + YamlStorage modifications)
+- [x] 01-02-PLAN.md — Remove locale system (Messages object, delete locale files)
 
 **Success Criteria:**
 1. WhitelistEntry data class holds player name + expiry timestamp

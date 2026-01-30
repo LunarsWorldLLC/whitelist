@@ -8,55 +8,45 @@
 See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Players are automatically removed from the whitelist when their time expires
-**Current focus:** Phase 1 - Storage Foundation
+**Current focus:** Phase 1 complete, ready for Phase 2
+
+## Current Position
+
+Phase: 1 of 3 (Storage Foundation)
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-01-30 - Completed 01-02-PLAN.md
+
+Progress: ██░░░░░░░░ 33%
 
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 1 | In Progress | 1/2 | 50% |
+| 1 | Complete | 2/2 | 100% |
 | 2 | Pending | 0/? | 0% |
 | 3 | Pending | 0/? | 0% |
 
-**Overall:** 0/3 phases complete
-
-```
-Phase 1: [##--------] 50%  (1/2 plans)
-Phase 2: [----------] 0%
-Phase 3: [----------] 0%
-```
-
-## Current Phase
-
-**Phase 1: Storage Foundation**
-- Status: In progress
-- Plan: 1 of 2 complete
-- Next action: Execute 01-02-PLAN.md (Remove locale system)
-
-## Recent Activity
-
-- 2026-01-30: Project initialized
-- 2026-01-30: Requirements defined (15 total)
-- 2026-01-30: Roadmap created (3 phases)
-- 2026-01-30: Completed 01-01-PLAN.md (Expiry-aware storage)
+**Overall:** 1/3 phases complete
 
 ## Decisions
 
-| Decision | Rationale | Phase |
-|----------|-----------|-------|
-| Nullable Long for expiry | Simpler than sealed class approach | 01-01 |
-| Lowercase map keys | Enables case-insensitive lookups | 01-01 |
-| createSection() for null expiry | Ensures player key exists in YAML | 01-01 |
+| Phase | Decision | Rationale |
+|-------|----------|-----------|
+| 01-01 | WhitelistEntry data class with nullable expiry | Supports both permanent and expiring entries |
+| 01-01 | YamlStorage modifications for expiry | Maintains compatibility with existing YAML format |
+| 01-02 | Messages object with hardcoded English | Simplifies plugin, removes 17 locale files |
+| 01-02 | Keep MessageFormat for MiniMessage tags | Maintains existing styling (comfy, warning, success) |
 
-## Blockers
+## Blockers/Concerns
 
 None
 
 ## Session Continuity
 
-Last session: 2026-01-30T14:12:52Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-storage-foundation/01-02-PLAN.md
+Last session: 2026-01-30T14:16:46Z
+Stopped at: Completed 01-02-PLAN.md (Phase 1 complete)
+Resume file: None
 
 ---
 *State updated: 2026-01-30*
