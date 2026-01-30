@@ -2,7 +2,7 @@ package com.cocahonka.comfywhitelist.commands.sub
 
 import be.seeseemelk.mockbukkit.command.MessageTarget
 import com.cocahonka.comfywhitelist.commands.CommandTestBase
-import com.cocahonka.comfywhitelist.config.message.Message
+import com.cocahonka.comfywhitelist.config.message.Messages
 import com.cocahonka.comfywhitelist.listeners.PlayerPreLoginEvent
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import org.junit.jupiter.api.Assertions.*
@@ -35,7 +35,7 @@ class EnableCommandTest : CommandTestBase() {
         server.pluginManager.registerEvents(PlayerPreLoginEvent(storage), plugin)
 
         val joiningPlayer = server.addPlayer()
-        
+
         latch = CountDownLatch(1)
         eventCallerThread = Thread {
             val inetAddress = InetAddress.getLocalHost()
@@ -52,7 +52,7 @@ class EnableCommandTest : CommandTestBase() {
     private fun assertOnlyEnableMessage(sender: MessageTarget){
         assertEquals(
             sender.nextMessage(),
-            legacySection.serialize(Message.WhitelistEnabled.getDefault(locale))
+            legacySection.serialize(Messages.whitelistEnabled)
         )
         sender.assertNoMoreSaid()
     }
@@ -60,7 +60,7 @@ class EnableCommandTest : CommandTestBase() {
     private fun assertOnlyAlreadyEnableMessage(sender: MessageTarget){
         assertEquals(
             sender.nextMessage(),
-            legacySection.serialize(Message.WhitelistAlreadyEnabled.getDefault(locale))
+            legacySection.serialize(Messages.whitelistAlreadyEnabled)
         )
         sender.assertNoMoreSaid()
     }
@@ -80,7 +80,7 @@ class EnableCommandTest : CommandTestBase() {
         )
 
         executeEvent()
-        
+
         assertTrue(result)
         assertWhitelistEnabled()
         assertConnectedFalse(event)
@@ -97,7 +97,7 @@ class EnableCommandTest : CommandTestBase() {
         )
 
         executeEvent()
-        
+
         assertFalse(result)
         assertWhitelistDisabled()
         assertConnectedTrue(event)
@@ -114,7 +114,7 @@ class EnableCommandTest : CommandTestBase() {
         )
 
         executeEvent()
-        
+
         assertTrue(result)
         assertWhitelistEnabled()
         assertConnectedFalse(event)
@@ -131,7 +131,7 @@ class EnableCommandTest : CommandTestBase() {
         )
 
         executeEvent()
-        
+
         assertFalse(result)
         assertWhitelistDisabled()
         assertConnectedTrue(event)
@@ -149,7 +149,7 @@ class EnableCommandTest : CommandTestBase() {
         )
 
         executeEvent()
-        
+
         assertTrue(result)
         assertWhitelistEnabled()
         assertConnectedFalse(event)
