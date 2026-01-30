@@ -2,14 +2,13 @@ package com.cocahonka.comfywhitelist.config.general
 
 import com.cocahonka.comfywhitelist.api.WhitelistManager
 import com.cocahonka.comfywhitelist.config.base.ConfigManager
-import com.cocahonka.comfywhitelist.config.base.Locale
 import org.bukkit.plugin.Plugin
 import java.io.File
 import kotlin.properties.Delegates
 
 /**
  * A class responsible for managing the general configuration of the plugin,
- * including enabling/disabling the plugin and setting the locale.
+ * including enabling/disabling the plugin.
  *
  * @param plugin The plugin instance.
  */
@@ -17,14 +16,11 @@ class GeneralConfig(private val plugin: Plugin) : WhitelistManager, ConfigManage
     companion object {
         var whitelistEnabled: Boolean by Delegates.notNull()
             private set
-        lateinit var locale: Locale
-            private set
         var clearCommandEnabled: Boolean by Delegates.notNull()
             private set
 
         private const val filePath = "config.yml"
         private const val enabledKey = "enabled"
-        private const val localeKey = "locale"
         private const val clearCommandKey = "clear-command"
     }
 
@@ -37,7 +33,6 @@ class GeneralConfig(private val plugin: Plugin) : WhitelistManager, ConfigManage
 
     override fun updateProperties() {
         whitelistEnabled = config.getBoolean(enabledKey, true)
-        locale = Locale.fromString(config.getString(localeKey))
         clearCommandEnabled = config.getBoolean(clearCommandKey, false)
     }
 
@@ -54,5 +49,4 @@ class GeneralConfig(private val plugin: Plugin) : WhitelistManager, ConfigManage
         config.set(enabledKey, false)
         config.save(configFile)
     }
-
 }

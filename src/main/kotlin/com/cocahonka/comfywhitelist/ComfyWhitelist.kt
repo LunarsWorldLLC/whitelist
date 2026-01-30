@@ -8,7 +8,6 @@ import com.cocahonka.comfywhitelist.api.WhitelistManager
 import com.cocahonka.comfywhitelist.commands.CommandHandler
 import com.cocahonka.comfywhitelist.commands.CommandTabCompleter
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
-import com.cocahonka.comfywhitelist.config.message.MessageConfig
 import com.cocahonka.comfywhitelist.listeners.PlayerPreLoginEvent
 import com.cocahonka.comfywhitelist.storage.YamlStorage
 import org.bukkit.plugin.PluginDescriptionFile
@@ -42,7 +41,6 @@ class ComfyWhitelist : JavaPlugin {
 
     private val isUnitTest: Boolean
     private lateinit var generalConfig: GeneralConfig
-    private lateinit var messageConfig: MessageConfig
     private lateinit var storage: YamlStorage
 
     override fun onEnable() {
@@ -67,13 +65,10 @@ class ComfyWhitelist : JavaPlugin {
 
     private fun loadConfigs() {
         generalConfig = GeneralConfig(this).apply { loadConfig() }
-
-        messageConfig = MessageConfig(this, GeneralConfig.locale).apply { loadConfig() }
     }
 
     fun reloadConfigs() {
         generalConfig.loadConfig()
-        messageConfig = MessageConfig(this, GeneralConfig.locale).apply { loadConfig() }
         storage.load()
     }
 
