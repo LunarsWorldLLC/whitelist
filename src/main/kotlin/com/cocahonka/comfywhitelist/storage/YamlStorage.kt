@@ -103,6 +103,23 @@ class YamlStorage(dataFolder: File) : Storage {
             .toSet()
     }
 
+    /**
+     * Removes all expired entries from storage and saves.
+     *
+     * @return Number of entries removed
+     */
+    fun removeExpiredEntries(): Int {
+        val expiredKeys = whitelistedPlayers.entries
+            .filter { !it.value.isValid() }
+            .map { it.key }
+
+        if (expiredKeys.isEmpty()) return 0
+
+        expiredKeys.forEach { whitelistedPlayers.remove(it) }
+        save()
+        return expiredKeys.size
+    }
+
     override fun load(): Boolean {
         return try {
             if (!storageFile.exists()) {
