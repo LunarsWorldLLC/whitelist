@@ -7,9 +7,9 @@
 
 ### Storage
 
-- [ ] **STOR-01**: Store player whitelist entries with expiry timestamps
-- [ ] **STOR-02**: Load whitelist from YAML on plugin startup
-- [ ] **STOR-03**: Save whitelist to YAML after modifications
+- [x] **STOR-01**: Store player whitelist entries with expiry timestamps
+- [x] **STOR-02**: Load whitelist from YAML on plugin startup
+- [x] **STOR-03**: Save whitelist to YAML after modifications
 
 ### Commands
 
@@ -31,7 +31,7 @@
 
 ### Simplification
 
-- [ ] **SIM-01**: Remove locale system (English only)
+- [x] **SIM-01**: Remove locale system (English only)
 - [ ] **SIM-02**: Remove unused commands (enable, disable, status, help, clear, reload)
 - [ ] **SIM-03**: Simplify message formatting (no MiniMessage tags)
 
@@ -54,9 +54,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STOR-01 | Phase 1 | Pending |
-| STOR-02 | Phase 1 | Pending |
-| STOR-03 | Phase 1 | Pending |
+| STOR-01 | Phase 1 | Complete |
+| STOR-02 | Phase 1 | Complete |
+| STOR-03 | Phase 1 | Complete |
 | CMD-01 | Phase 2 | Pending |
 | CMD-02 | Phase 2 | Pending |
 | CMD-03 | Phase 2 | Pending |
@@ -66,7 +66,7 @@
 | ACC-02 | Phase 3 | Pending |
 | CLN-01 | Phase 3 | Pending |
 | CLN-02 | Phase 3 | Pending |
-| SIM-01 | Phase 1 | Pending |
+| SIM-01 | Phase 1 | Complete |
 | SIM-02 | Phase 2 | Pending |
 | SIM-03 | Phase 2 | Pending |
 
@@ -77,4 +77,4 @@
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after initial definition*
+*Last updated: 2026-01-30 after Phase 1 completion*
