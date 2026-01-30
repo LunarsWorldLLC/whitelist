@@ -23,8 +23,19 @@ class ListCommandTest : CommandTestBase() {
     }
 
     private fun assertOnlyWhitelistedPlayersListMessage(sender: MessageTarget) {
-        val whitelistedPlayers = storage.allWhitelistedPlayers
-        val replacementConfig = MessageFormat.ConfigBuilders.playersReplacementConfigBuilder(whitelistedPlayers)
+        // ListCommand now formats entries as "PlayerName (permanent remaining)" or "PlayerName (X days remaining)"
+        val entries = storage.getAllValidEntries()
+        val playerDisplayList = entries.map { entry ->
+            val daysRemaining = if (entry.isPermanent()) "permanent" else {
+                val remaining = entry.remainingTimeMillis() ?: 0L
+                if (remaining <= 0) "0 days" else {
+                    val days = remaining / (24L * 60L * 60L * 1000L)
+                    if (days == 1L) "1 day" else "$days days"
+                }
+            }
+            "${entry.playerName} ($daysRemaining remaining)"
+        }.toSet()
+        val replacementConfig = MessageFormat.ConfigBuilders.playersReplacementConfigBuilder(playerDisplayList)
         val message = Messages.whitelistedPlayersList.replaceText(replacementConfig)
         assertEquals(
             sender.nextMessage(),

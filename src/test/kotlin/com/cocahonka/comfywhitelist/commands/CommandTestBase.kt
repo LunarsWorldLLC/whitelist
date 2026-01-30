@@ -6,7 +6,6 @@ import be.seeseemelk.mockbukkit.command.ConsoleCommandSenderMock
 import be.seeseemelk.mockbukkit.command.MessageTarget
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import com.cocahonka.comfywhitelist.ComfyWhitelist
-import com.cocahonka.comfywhitelist.api.Storage
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
 import com.cocahonka.comfywhitelist.config.message.MessageFormat
 import com.cocahonka.comfywhitelist.config.message.Messages
@@ -27,7 +26,7 @@ abstract class CommandTestBase {
     protected lateinit var playerWithPermission: PlayerMock
     protected lateinit var playerWithoutPermission: PlayerMock
 
-    protected lateinit var storage: Storage
+    protected lateinit var storage: YamlStorage
     protected lateinit var generalConfig: GeneralConfig
 
     protected lateinit var command: PluginCommand
@@ -48,7 +47,7 @@ abstract class CommandTestBase {
         generalConfig = GeneralConfig(plugin).apply { loadConfig() }
 
         command = plugin.getCommand(CommandHandler.identifier)!!
-        handler = CommandHandler(storage, generalConfig, plugin)
+        handler = CommandHandler(storage)
     }
 
     @AfterEach
@@ -75,7 +74,7 @@ abstract class CommandTestBase {
         assertFalse(storage.isPlayerWhitelisted(player.name))
 
     protected fun assertStorageEmpty() =
-        assertTrue(storage.allWhitelistedPlayers.isEmpty())
+        assertTrue(storage.getAllWhitelistedPlayers().isEmpty())
 
     protected fun assertOnlyNoPermissionMessage(sender: MessageTarget) {
         assertEquals(
