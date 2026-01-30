@@ -5,3 +5,7 @@ enabled: false
 # HIGH RISK COMMAND - DATA FROM THE WHITELIST WILL NOT BE RETURNED!!!
 # enable this command ONLY if you really need it and trust your administrators
 clear-command: false
+
+# Interval in hours between cleanup task runs (removes expired whitelist entries)
+# Minimum: 1 hour
+cleanup-interval-hours: 1

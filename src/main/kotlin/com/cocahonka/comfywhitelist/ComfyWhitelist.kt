@@ -10,6 +10,8 @@ import com.cocahonka.comfywhitelist.commands.CommandTabCompleter
 import com.cocahonka.comfywhitelist.config.general.GeneralConfig
 import com.cocahonka.comfywhitelist.listeners.PlayerPreLoginEvent
 import com.cocahonka.comfywhitelist.storage.YamlStorage
+import com.cocahonka.comfywhitelist.tasks.ExpiredEntriesCleanupTask
+import org.bukkit.scheduler.BukkitTask
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
@@ -42,13 +44,16 @@ class ComfyWhitelist : JavaPlugin {
     private val isUnitTest: Boolean
     private lateinit var generalConfig: GeneralConfig
     private lateinit var storage: YamlStorage
+    private var cleanupTask: BukkitTask? = null
 
     override fun onEnable() {
         if (isUnitTest) onUnitTest()
         else onPluginEnable()
     }
 
-    override fun onDisable() {}
+    override fun onDisable() {
+        cleanupTask?.cancel()
+    }
 
     private fun onUnitTest() {
         loadConfigs()
@@ -60,6 +65,7 @@ class ComfyWhitelist : JavaPlugin {
         loadStorage()
         registerEvents()
         registerCommands()
+        startCleanupTask()
         emitAPI()
     }
 
@@ -92,6 +98,12 @@ class ComfyWhitelist : JavaPlugin {
         for(alias in aliases) {
             server.commandMap.knownCommands.remove("$identifier:$alias")
         }
+    }
+
+    private fun startCleanupTask() {
+        val intervalTicks = GeneralConfig.cleanupIntervalHours * 20L * 60L * 60L
+        cleanupTask = ExpiredEntriesCleanupTask(storage, this)
+            .runTaskTimer(this, intervalTicks, intervalTicks)
     }
 
     private fun emitAPI() {
