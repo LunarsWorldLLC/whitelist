@@ -33,4 +33,8 @@ object Messages {
     val whitelistedPlayersList: Component = styled("<comfy>Whitelisted players: <success><players></success>")
     val emptyWhitelistedPlayersList: Component = styled("<comfy>Whitelist is <off>empty.</off>")
     val whitelistCleared: Component = styled("<comfy>All players have been <remove>removed</remove> from the whitelist.")
+
+    // Expiry-related messages
+    val playerExpiryExtended: Component = styled("<comfy>Player <success><name></success> whitelist <success>extended</success> by 31 days.")
+    val playerCheckResult: Component = styled("<comfy>Player <success><name></success> has <success><days></success> remaining.")
 }

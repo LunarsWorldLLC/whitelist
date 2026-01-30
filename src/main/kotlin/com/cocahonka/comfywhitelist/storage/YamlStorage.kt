@@ -73,6 +73,15 @@ class YamlStorage(dataFolder: File) : Storage {
         return whitelistedPlayers[username.lowercase()]
     }
 
+    /**
+     * Gets all currently valid whitelist entries.
+     *
+     * @return List of valid (non-expired) whitelist entries
+     */
+    fun getAllValidEntries(): List<WhitelistEntry> {
+        return whitelistedPlayers.values.filter { it.isValid() }
+    }
+
     override fun removePlayer(username: String): Boolean {
         return (whitelistedPlayers.remove(username.lowercase()) != null).also { if (it) save() }
     }

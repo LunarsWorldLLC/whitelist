@@ -77,6 +77,19 @@ object MessageFormat {
                 .replacement(players.joinToString())
                 .build()
         }
+
+        /**
+         * Returns a [TextReplacementConfig] for replacing the "days" tag with the specified days string.
+         *
+         * @param days The days remaining string.
+         * @return The [TextReplacementConfig].
+         */
+        val daysReplacementConfigBuilder = { days: String ->
+            TextReplacementConfig.builder()
+                .match("<days>")
+                .replacement(days)
+                .build()
+        }
     }
 
     /**
