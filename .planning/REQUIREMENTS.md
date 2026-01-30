@@ -13,11 +13,11 @@
 
 ### Commands
 
-- [ ] **CMD-01**: `/wl add <player>` adds player with 31-day expiry
-- [ ] **CMD-02**: `/wl add <player>` on existing player extends expiry by 31 days
-- [ ] **CMD-03**: `/wl remove <player>` removes player from whitelist
-- [ ] **CMD-04**: `/wl list` shows all players with days remaining
-- [ ] **CMD-05**: `/wl check <player>` shows specific player's remaining time
+- [x] **CMD-01**: `/wl add <player>` adds player with 31-day expiry
+- [x] **CMD-02**: `/wl add <player>` on existing player extends expiry by 31 days
+- [x] **CMD-03**: `/wl remove <player>` removes player from whitelist
+- [x] **CMD-04**: `/wl list` shows all players with days remaining
+- [x] **CMD-05**: `/wl check <player>` shows specific player's remaining time
 
 ### Access Control
 
@@ -32,8 +32,8 @@
 ### Simplification
 
 - [x] **SIM-01**: Remove locale system (English only)
-- [ ] **SIM-02**: Remove unused commands (enable, disable, status, help, clear, reload)
-- [ ] **SIM-03**: Simplify message formatting (no MiniMessage tags)
+- [x] **SIM-02**: Remove unused commands (enable, disable, status, help, clear, reload)
+- [x] **SIM-03**: Simplify message formatting (no MiniMessage tags)
 
 ## v2 Requirements
 
@@ -57,18 +57,18 @@
 | STOR-01 | Phase 1 | Complete |
 | STOR-02 | Phase 1 | Complete |
 | STOR-03 | Phase 1 | Complete |
-| CMD-01 | Phase 2 | Pending |
-| CMD-02 | Phase 2 | Pending |
-| CMD-03 | Phase 2 | Pending |
-| CMD-04 | Phase 2 | Pending |
-| CMD-05 | Phase 2 | Pending |
+| CMD-01 | Phase 2 | Complete |
+| CMD-02 | Phase 2 | Complete |
+| CMD-03 | Phase 2 | Complete |
+| CMD-04 | Phase 2 | Complete |
+| CMD-05 | Phase 2 | Complete |
 | ACC-01 | Phase 3 | Pending |
 | ACC-02 | Phase 3 | Pending |
 | CLN-01 | Phase 3 | Pending |
 | CLN-02 | Phase 3 | Pending |
 | SIM-01 | Phase 1 | Complete |
-| SIM-02 | Phase 2 | Pending |
-| SIM-03 | Phase 2 | Pending |
+| SIM-02 | Phase 2 | Complete |
+| SIM-03 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 15 total
@@ -77,4 +77,4 @@
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after Phase 1 completion*
+*Last updated: 2026-01-30 after Phase 2 completion*
